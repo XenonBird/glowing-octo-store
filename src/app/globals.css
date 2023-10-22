@@ -2,12 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "~@flaticon/flaticon-uicons/css/all/all";
+@import '~@flaticon/flaticon-uicons/css/all/all';
 
 * {
   color: #333;
+
+  /* border: 1px solid #888; */
 }
 
+.gradient-text {
+  background: linear-gradient(45deg, #2a1ad8, #b948ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gradient-bg {
+  background: linear-gradient(45deg, #2a1ad8, #b948ff);
+}
 /*
 :root {
   --foreground-rgb: 0, 0, 0;

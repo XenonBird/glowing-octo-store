@@ -3,7 +3,7 @@ import Link from 'next/link';
 function TabBar() {
   return (
     <nav className="w-full">
-      <div className="max-w-6xl mx-auto flex justify-around items-center border-t">
+      <div className="max-w-md mx-auto flex justify-around items-center border-t">
         <Link
           href=""
           className="w-full h-full pt-2 pb-1 flex flex-col items-center borde"
