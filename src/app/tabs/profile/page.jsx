@@ -14,7 +14,7 @@ const ProfilePage = () => {
         <div className="px-4 py-2">
           <h3 className="text-lg font-semibold">About Me</h3>
           <p className="text-gray-600">
-            I'm a passionate web developer with a love for coding and creating
+            I am a passionate web developer with a love for coding and creating
             web applications. I enjoy learning new technologies and improving my
             skills.
           </p>

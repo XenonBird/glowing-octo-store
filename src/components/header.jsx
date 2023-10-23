@@ -6,7 +6,7 @@ function Header() {
       <div className="max-w-6xl mx-auto p-4 py-2 flex justify-between items-center">
         <div></div>
         <div className="flex justify-center items-center overflow-hidden">
-          <Image src="/netflix.png" width={50} height={20} />
+          <Image src="/netflix.png" width={50} height={20} alt="site-logo" />
         </div>
         <div className="h-[30px] aspect-square flex justify-center items-center">
           <i className="fi fi-rr-bars-sort text-xl"></i>

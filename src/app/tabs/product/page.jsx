@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const ProductDetail = () => {
@@ -6,8 +7,10 @@ const ProductDetail = () => {
       <div className="max-w-6xl mx-auto mt-4 p-4">
         <div className="flex flex-wrap gap-4">
           <div className="w-full md:w-1/2">
-            <img
+            <Image
               src="/products/samsung-s22-ultra.jpg"
+              width={360}
+              height={360}
               alt="Product Image"
               className="rounded-lg"
             />
@@ -25,7 +28,7 @@ const ProductDetail = () => {
               <div className="my-4">
                 <h3 className="text-xl font-semibold">Key Features</h3>
                 <ul className="list-disc pl-4">
-                  <li>6.7" AMOLED Display</li>
+                  <li>6.7&quot; AMOLED Display</li>
                   <li>Snapdragon 888 CPU</li>
                   <li>8GB RAM, 128GB Storage</li>
                   <li>Triple Camera System</li>
@@ -53,7 +56,7 @@ const ProductDetail = () => {
             <tbody>
               <tr>
                 <td className="pr-4">Display</td>
-                <td>6.7" AMOLED</td>
+                <td>6.7&quot; AMOLED</td>
               </tr>
               <tr>
                 <td className="pr-4">Processor</td>

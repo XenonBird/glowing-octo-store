@@ -1,10 +1,16 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 function ProductListItem({ address }) {
   return (
     <Link href={address} className="p-2 flex gap-2 border shadow-md">
       <div className="w-1/4 text-center">
-        <img src="/products/samsung-s22-ultra.jpg" alt="Product Image" />
+        <Image
+          src="/products/samsung-s22-ultra.jpg"
+          width={360}
+          height={360}
+          alt="Product Image"
+        />
         <small className="text-gray-500">Qty: 1</small>
       </div>
       <div className="w-1/2 flex flex-col justify-center">
