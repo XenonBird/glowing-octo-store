@@ -19,6 +19,25 @@
 .gradient-bg {
   background: linear-gradient(45deg, #2a1ad8, #b948ff);
 }
+.tap-highlight-disable {
+  -webkit-tap-highlight-color: transparent;
+}
+.active-tab {
+  background: linear-gradient(45deg, #2a1ad8, #b948ff);
+  -webkit-tap-highlight-color: transparent;
+}
+/* .active-tab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #2a1ad8, #b948ff);
+  border-radius: 50%;
+  z-index: -1;
+} */
 /*
 :root {
   --foreground-rgb: 0, 0, 0;

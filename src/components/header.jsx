@@ -1,16 +1,15 @@
 import Image from 'next/image';
+import CustomMenu from '@/components/menu';
 
 function Header() {
   return (
     <header className="w-full">
       <div className="max-w-6xl mx-auto p-4 py-2 flex justify-between items-center">
-        <div></div>
+        <CustomMenu />
         <div className="flex justify-center items-center overflow-hidden">
           <Image src="/netflix.png" width={50} height={20} alt="site-logo" />
         </div>
-        <div className="h-[30px] aspect-square flex justify-center items-center">
-          <i className="fi fi-rr-bars-sort text-xl"></i>
-        </div>
+        <div></div>
       </div>
       <div className="max-w-6xl mx-auto p-2 pt-0 text-xl border-b flex justify-center">
         <div className="flex justify-center p-0 items-center border overflow-hidden rounded-lg">

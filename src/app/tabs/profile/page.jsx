@@ -2,8 +2,8 @@ const ProfilePage = () => {
   return (
     <main className="p-4 grow overflow-y-scroll">
       <div className="max-w-md mx-auto shadow-lg rounded-lg overflow-hidden border">
-        <p className="flex justify-center items-center w-36 h-36 m-4 mx-auto rounded-[50%] border shadow-lg">
-          <i className="fi fi-rr-user text-5xl"></i>
+        <p className="flex justify-center items-center w-36 h-36 m-4 mx-auto rounded-[50%] border shadow-lg gradient-bg">
+          <i className="fi fi-rr-user text-5xl text-white"></i>
         </p>
 
         <div className="px-4 py-2">
@@ -33,6 +33,12 @@ const ProfilePage = () => {
               <li>
                 Phone:{' '}
                 <a className="underline" href="tel:+91 9933112244">
+                  (+91) 9933112244
+                </a>
+              </li>
+              <li>
+                WhatsApp:{' '}
+                <a className="underline" href="https://wa.me/+919933112244">
                   (+91) 9933112244
                 </a>
               </li>
