@@ -1,11 +1,20 @@
 import Image from 'next/image';
-import React from 'react';
+import Link from 'next/link';
 
-const ProductDetail = () => {
+export const metadata = {
+  openGraph: {
+    title: 'Samsung Galaxy S23 Ultra',
+    description: 'Get Samsung Galaxy S23 Ultra at most affordable price',
+    images: ['/products/samsung-s22-ultra.jpg'],
+  },
+};
+
+const ProductDetail = ({ params }) => {
   return (
     <main className="w-full grow overflow-y-scroll">
       <div className="max-w-6xl mx-auto mt-4 p-4">
         <div className="flex flex-wrap gap-4">
+          <p>{params.product}</p>
           <div className="w-full md:w-1/2">
             <Image
               src="/products/samsung-s22-ultra.jpg"
@@ -21,10 +30,14 @@ const ProductDetail = () => {
             </h1>
             <p className="text-gray-500">By Samsung</p>
             <div className="my-4">
-              <h2 className="text-2xl font-semibold text-red-500">
-                ₹31,999.00
-              </h2>
               <p className="text-gray-500">In Stock</p>
+              <h2 className="text-2xl font-semibold text-green-600">
+                ₹9,499.00 - ₹14,499.00
+              </h2>
+              <p className="w-40 ml-auto text-xs">
+                Price depends on the condition of the mobile <br />
+                better and newer mobiles will be higher in price and vice-versa
+              </p>
               <div className="my-4">
                 <h3 className="text-xl font-semibold">Key Features</h3>
                 <ul className="list-disc pl-4">
@@ -86,6 +99,12 @@ const ProductDetail = () => {
           {/* Add a section for customer reviews here */}
         </div>
       </div>
+      <Link
+        href="https://wa.me/919933112244?text=Hi%20there%2C%0AI%20am%20intrested%20in%20*Samsung%20Galaxy%20s23%20ultra*"
+        className="fixed bottom-[calc(61px+1rem)] right-4 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-md tap-highlight-disable"
+      >
+        <i className="fi fi-brands-whatsapp text-white text-4xl flex items-center"></i>
+      </Link>
     </main>
   );
 };

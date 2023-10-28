@@ -1,5 +1,5 @@
-import ProductCard from '@/components/product-card';
-import ProductListItem from '@/components/product-list-item';
+import ProductCard from '@/app/components/product-card';
+import ProductListItem from '@/app/components/product-list-item';
 
 function WishlistTab() {
   return (
@@ -8,11 +8,26 @@ function WishlistTab() {
         Wishlist
       </h3>
       <div className="max-w-6xl mx-auto p-2 grow grid grid-cols-1 md:grid-cols-2 gap-2 justify-items-center">
-        <ProductListItem product={{}} address="/tabs/product" />
-        <ProductListItem product={{}} address="/tabs/product" />
-        <ProductListItem product={{}} address="/tabs/product" />
-        <ProductListItem product={{}} address="/tabs/product" />
-        <ProductListItem product={{}} address="/tabs/product" />
+        <ProductListItem
+          product={{}}
+          address="/tabs/home/samsung-galaxy-s23-ultra"
+        />
+        <ProductListItem
+          product={{}}
+          address="/tabs/home/samsung-galaxy-s23-ultra"
+        />
+        <ProductListItem
+          product={{}}
+          address="/tabs/home/samsung-galaxy-s23-ultra"
+        />
+        <ProductListItem
+          product={{}}
+          address="/tabs/home/samsung-galaxy-s23-ultra"
+        />
+        <ProductListItem
+          product={{}}
+          address="/tabs/home/samsung-galaxy-s23-ultra"
+        />
       </div>
     </main>
   );

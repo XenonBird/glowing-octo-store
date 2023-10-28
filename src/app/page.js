@@ -1,4 +1,4 @@
-import Header from '@/components/header';
+import Header from '@/app/components/header';
 import Link from 'next/link';
 
 const WelcomePage = () => {

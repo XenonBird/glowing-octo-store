@@ -9,13 +9,13 @@ const CustomMenu = () => {
   };
 
   return (
-    <>
+    <div>
       <div
         className="h-[40px] aspect-square flex justify-center items-center gradient-bg rounded-md"
         onClick={handleToggle}
       >
         {open ? (
-          <i class="fi fi-rr-cross text-xl text-white flex items-center"></i>
+          <i className="fi fi-rr-cross text-xl text-white flex items-center"></i>
         ) : (
           <i className="fi fi-rr-bars-sort text-xl text-white flex items-center"></i>
         )}
@@ -29,7 +29,7 @@ const CustomMenu = () => {
       >
         <MenuContent />
       </div>
-    </>
+    </div>
   );
 };
 

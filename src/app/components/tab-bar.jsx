@@ -13,28 +13,28 @@ function TabBar() {
       <div className="max-w-md mx-auto p-1 flex gap-1 justify-around items-center border-t">
         <NavLink
           href="/tabs/home"
-          active={activeTab === '/tabs/home'}
+          active={activeTab.includes('/tabs/home')}
           text="Shop"
           icon="fi fi-rr-store-alt"
           setActiveTab={setActiveTab}
         />
         <NavLink
           href="/tabs/wishlist"
-          active={activeTab === '/tabs/wishlist'}
+          active={activeTab.includes('/tabs/wishlist')}
           text="Wishlist"
           icon="fi fi-rr-heart"
           setActiveTab={setActiveTab}
         />
         <NavLink
           href="/tabs/cart"
-          active={activeTab === '/tabs/cart'}
+          active={activeTab.includes('/tabs/cart')}
           text="Cart"
           icon="fi fi-rr-shopping-bag"
           setActiveTab={setActiveTab}
         />
         <NavLink
           href="/tabs/profile"
-          active={activeTab === '/tabs/profile'}
+          active={activeTab.includes('/tabs/profile')}
           text="Profile"
           icon="fi fi-rr-user"
           setActiveTab={setActiveTab}

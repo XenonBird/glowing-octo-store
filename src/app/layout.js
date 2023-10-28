@@ -6,6 +6,11 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 export const metadata = {
   title: 'Octopus mobi',
   description: 'Most trusted store for second-hand mobiles',
+  openGraph: {
+    title: '',
+    description: 'Acme is a...',
+    images: ['/next.svg'],
+  },
 };
 
 export default function RootLayout({ children }) {

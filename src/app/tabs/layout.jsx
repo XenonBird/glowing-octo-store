@@ -1,5 +1,5 @@
-import Header from '@/components/header';
-import TabBar from '@/components/tab-bar';
+import Header from '@/app/components/header';
+import TabBar from '@/app/components/tab-bar';
 
 export default function TabLayout({ children }) {
   return (

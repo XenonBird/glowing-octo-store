@@ -19,6 +19,12 @@
 .gradient-bg {
   background: linear-gradient(45deg, #2a1ad8, #b948ff);
 }
+.gradient-border {
+  border: 3px solid transparent;
+  border-image: linear-gradient(45deg, #2a1ad8, #b948ff) 1;
+  border-image-slice: 1;
+}
+
 .tap-highlight-disable {
   -webkit-tap-highlight-color: transparent;
 }
