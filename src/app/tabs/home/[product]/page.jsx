@@ -100,7 +100,7 @@ const ProductDetail = ({ params }) => {
         </div>
       </div>
       <Link
-        href="https://wa.me/919933112244?text=Hi%20there%2C%0AI%20am%20intrested%20in%20*Samsung%20Galaxy%20s23%20ultra*"
+        href="https://wa.me/917584085151?text=https%3A%2F%2Foctopus-mobi.vercel.app%2Ftabs%2Fhome%2Fsamsung-galaxy-s23%0A*SAMSUNG%20GALAXY%20S21%20FE%205G*%0A.%0A.%0AHi%20there%2C%20%0AI'm%20intrested%20in%20this%20mobile"
         className="fixed bottom-[calc(61px+1rem)] right-4 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-md tap-highlight-disable"
       >
         <i className="fi fi-brands-whatsapp text-white text-4xl flex items-center"></i>
