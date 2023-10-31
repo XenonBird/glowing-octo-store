@@ -73,7 +73,7 @@ function LoginScreen({ params }) {
 
           {params.auth === 'login' ? (
             <p>
-              Don't have account?{' '}
+              Don&apos;t have account?{' '}
               <Link
                 className="underline gradient-text font-semibold"
                 href="/auth/register"
