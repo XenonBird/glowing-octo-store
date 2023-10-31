@@ -1,3 +1,4 @@
+import WebsiteConfig from '@/models/websiteConfig';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,7 +10,9 @@ export const metadata = {
   },
 };
 
-const ProductDetail = ({ params }) => {
+const ProductDetail = async ({ params }) => {
+  const data = await WebsiteConfig.findOne({});
+
   return (
     <main className="w-full grow overflow-y-scroll">
       <div className="max-w-6xl mx-auto mt-4 p-4">
@@ -99,8 +102,10 @@ const ProductDetail = ({ params }) => {
           {/* Add a section for customer reviews here */}
         </div>
       </div>
+      <pre className="text-left">{JSON.stringify(data, null, 4)}</pre>
+
       <Link
-        href="https://wa.me/919933112244?text=Hi%20there%2C%0AI%20am%20intrested%20in%20*Samsung%20Galaxy%20s23%20ultra*"
+        href={`https://wa.me/91${data.adminPhoneNumber}?text=Hi%20there%2C%0AI%20am%20intrested%20in%20*Samsung%20Galaxy%20s23%20ultra*`}
         className="fixed bottom-[calc(61px+1rem)] right-4 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-md tap-highlight-disable"
       >
         <i className="fi fi-brands-whatsapp text-white text-4xl flex items-center"></i>
