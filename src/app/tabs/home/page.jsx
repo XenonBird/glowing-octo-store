@@ -1,9 +1,11 @@
 import MobileBrandBar from '@/app/components/brand-bar';
 import ProductCard from '@/app/components/product-card';
+import { dbConnect } from '@/dbConfig/db-config';
 import Product from '@/models/product';
 import Link from 'next/link';
 
 async function HomePage() {
+  await dbConnect();
   const productsList = await Product.find();
 
   return (
