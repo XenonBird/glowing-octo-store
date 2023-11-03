@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const ProductCard = ({ address, shrink }) => {
+const ProductCard = ({ product, shrink }) => {
   return (
     <Link
-      href={address}
+      href={`/tabs/home/${product._id}`}
       className={`${
         !shrink ? 'min-w-[180px] snap-start' : ''
       } bg-white rounded-lg shadow-lg p-4 cursor-pointer border`}
@@ -13,13 +13,13 @@ const ProductCard = ({ address, shrink }) => {
         <Image
           width={360}
           height={360}
-          src="/products/samsung-s22-ultra.jpg"
+          src={product.imageUrl}
           alt="Product Image"
           className="object-cover mx-auto"
         />
       </div>
       <div className="mt-2 text-xs flex flex-col gap-1">
-        <h6 className="text-md font-bold text-center">Samsung S22 Ultra</h6>
+        <h6 className="text-md font-bold text-center">{product.name}</h6>
         {/* <p className="text-gray-500 text-[0.5rem]">
           <span className="p-1 rounded bg-slate-300">Samsung</span>{' '}
           <span className="p-1 rounded bg-slate-300">Mobile</span>
@@ -40,8 +40,7 @@ const ProductCard = ({ address, shrink }) => {
         {/* </h6> */}
         <div className="flex justify-center">
           <p className="px-4 py-2 gradient-bg text-white font-semibold rounded-lg">
-            {/* Buy at ₹9,499.00 */}
-            ₹9,499.00
+            {/* Buy at ₹9,499.00 */}₹{product.price.min} - ₹{product.price.max}
           </p>
         </div>
       </div>

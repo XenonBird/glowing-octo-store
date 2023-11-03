@@ -5,42 +5,35 @@ import { useState, useEffect } from 'react';
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
-
-  const dummyProducts = [
-    {
-      _id: '1',
-      name: 'Product1',
-      brand: 'BrandA',
-      description: 'This is the first product.',
-    },
-    {
-      _id: '2',
-      name: 'Product2',
-      brand: 'BrandB',
-      description: 'This is the second product.',
-    },
-    {
-      _id: '3',
-      name: 'Product3',
-      brand: 'BrandC',
-      description: 'This is the third product.',
-    },
-  ];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fetching data from an API or database
-    setTimeout(() => {
-      setProducts(dummyProducts);
-    }, 1000);
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/admin');
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+          setLoading(false);
+        } else {
+          console.log('Failed to fetch data');
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error', error);
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleEdit = (productId) => {
-    // Implement edit logic
+    // Implement edit logic here
     console.log(`Edit product with ID: ${productId}`);
   };
 
   const handleDelete = (productId) => {
-    // Implement delete logic
+    // Implement delete logic here
     console.log(`Delete product with ID: ${productId}`);
   };
 
@@ -52,45 +45,72 @@ const Dashboard = () => {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xl p-4 font-semibold mb-4">Product Dashboard</h2>
 
-          <table className="w-full m-4 overflow-y-scroll">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border">Name</th>
-                <th className="py-2 px-4 border">Brand</th>
-                <th className="py-2 px-4 border">Description</th>
-                <th className="py-2 px-4 border">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td className="py-2 px-4 border">{product.name}</td>
-                  <td className="py-2 px-4 border">{product.brand}</td>
-                  <td className="py-2 px-4 border">{product.description}</td>
-                  <td className="py-2 px-4 border">
-                    <Link
-                      href=""
-                      className="px-2 py-1 mr-2 bg-blue-500 text-white rounded-lg"
-                      onClick={() => handleEdit(product._id)}
-                    >
-                      Edit
-                    </Link>
-                    <Link
-                      href=""
-                      className="px-2 py-1 bg-red-500 text-white rounded-lg"
-                      onClick={() => handleDelete(product._id)}
-                    >
-                      Delete
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {loading ? (
+            <p className="text-lg">Loading...</p>
+          ) : (
+            <>
+              <Link
+                href="/admin/new"
+                className="m-4 max-w-xs font-semibold block px-4 py-2 bg-green-500 text-white text-center rounded-lg text-xl "
+              >
+                Add new
+              </Link>
+              <table className="w-full m-4 overflow-y-scroll">
+                <thead>
+                  <tr>
+                    {/* <th className="py-2 px-4 border">Id</th> */}
+                    <th className="py-2 px-4 border">Name</th>
+                    <th className="py-2 px-4 border">Brand</th>
+                    <th className="py-2 px-4 border">Price (from)</th>
+                    <th className="py-2 px-4 border">Price (to)</th>
+                    <th className="py-2 px-4 border">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <TableRow key={product._id} rowData={product} />
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
         </div>
       </main>
     </>
   );
 };
+
+function TableRow({ rowData }) {
+  return (
+    <tr key={rowData._id}>
+      {/* <td className="py-2 px-4 border">{rowData._id}</td> */}
+      <td className="py-2 px-4 border">{rowData.name}</td>
+      <td className="py-2 px-4 border">{rowData.brand}</td>
+      <td className="py-2 px-4 border">{rowData.price.min}</td>
+      <td className="py-2 px-4 border">{rowData.price.max}</td>
+
+      <td className="py-2 px-4 border  flex gap-2 items-center">
+        <Link
+          href={`/tabs/home/${rowData._id}`}
+          className="px-4 py-2 bg-green-500 rounded-lg"
+        >
+          <i className="fi fi-rr-eye flex text-lg text-white"></i>
+        </Link>
+        <Link
+          href={`/admin/edit/${rowData._id}`}
+          className="px-4 py-2 bg-yellow-500 rounded-lg"
+        >
+          <i className="fi fi-rr-pencil flex text-lg text-white"></i>
+        </Link>
+        <Link
+          href={`/admin/delete/${rowData._id}`}
+          className="px-4 py-2 bg-red-500 rounded-lg"
+        >
+          <i className="fi fi-rr-trash flex text-lg text-white"></i>
+        </Link>
+      </td>
+    </tr>
+  );
+}
 
 export default Dashboard;

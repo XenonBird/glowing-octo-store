@@ -1,88 +1,32 @@
 import MobileBrandBar from '@/app/components/brand-bar';
 import ProductCard from '@/app/components/product-card';
+import Product from '@/models/product';
 import Link from 'next/link';
 
-function HomePage() {
+async function HomePage() {
+  const productsList = await Product.find({});
+
   return (
     <main className="w-full overflow-y-scroll">
       <div className="max-w-6xl mx-auto">
         <MobileBrandBar />
 
         <ProductSection text="new arrivals" scroll={true} address="">
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
-          <ProductCard product={{}} address="/tabs/home/samsung-galaxy-s23" />
+          {productsList.map((p) => (
+            <ProductCard product={p} key={p._id} />
+          ))}
         </ProductSection>
 
         <ProductSection text="recommended" scroll={false} address="">
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
+          {productsList.map((p) => (
+            <ProductCard product={p} shrink={true} key={p._id} />
+          ))}
         </ProductSection>
 
         <ProductSection text="todays offer" scroll={false} address="">
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
-          <ProductCard
-            product={{}}
-            shrink={true}
-            address="/tabs/home/samsung-galaxy-s23"
-          />
+          {productsList.map((p) => (
+            <ProductCard product={p} shrink={true} key={p._id} />
+          ))}
         </ProductSection>
       </div>
     </main>
