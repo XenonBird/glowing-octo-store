@@ -4,7 +4,7 @@ import { dbConnect } from '@/dbConfig/db-config';
 import Product from '@/models/product';
 import Link from 'next/link';
 
-async function HomePage() {
+async function HomePage({ params }) {
   await dbConnect();
   const productsList = await Product.find();
 

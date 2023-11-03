@@ -4,6 +4,13 @@ import './globals.css';
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export const metadata = {
+  metadataBase: new URL('https://octopus-mobi.vercel.app'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+    },
+  },
   title: 'Octopus mobi',
   description: 'Most trusted store for second-hand mobiles',
   openGraph: {

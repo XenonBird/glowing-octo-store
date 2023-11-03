@@ -6,7 +6,7 @@ const ProductCard = ({ product, shrink }) => {
     <Link
       href={`/tabs/home/${product._id}`}
       className={`${
-        !shrink ? 'min-w-[180px] snap-start' : ''
+        !shrink ? 'min-w-[180px] max-w-[300px] snap-start' : ''
       } bg-white rounded-lg shadow-lg p-4 cursor-pointer border`}
     >
       <div className="text-center aspect-square">
