@@ -4,7 +4,7 @@ import Product from '@/models/product';
 import Link from 'next/link';
 
 async function HomePage() {
-  const productsList = await Product.find({});
+  const productsList = await Product.find();
 
   return (
     <main className="w-full overflow-y-scroll">
