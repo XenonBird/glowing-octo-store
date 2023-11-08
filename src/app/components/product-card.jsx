@@ -7,7 +7,7 @@ const ProductCard = ({ product, shrink }) => {
       href={`/tabs/home/${product._id}`}
       className={`${
         !shrink ? 'min-w-[180px] max-w-[300px] snap-start' : ''
-      } bg-white rounded-lg shadow-lg p-4 cursor-pointer border`}
+      } bg-white rounded-lg shadow-lg p-4 cursor-pointer border flex flex-col`}
     >
       <div className="text-center aspect-square">
         <Image
@@ -18,7 +18,7 @@ const ProductCard = ({ product, shrink }) => {
           className="object-cover mx-auto"
         />
       </div>
-      <div className="mt-2 text-xs flex flex-col gap-1">
+      <div className="mt-2 text-xs grow flex flex-col gap-1 justify-between">
         <h6 className="text-md font-bold text-center">{product.name}</h6>
         {/* <p className="text-gray-500 text-[0.5rem]">
           <span className="p-1 rounded bg-slate-300">Samsung</span>{' '}
