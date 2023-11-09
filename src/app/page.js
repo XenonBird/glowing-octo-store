@@ -1,13 +1,7 @@
 import Header from '@/app/components/header';
 import Link from 'next/link';
-import { dbConnect } from '../dbConfig/db-config';
-import WebsiteConfig from '@/models/websiteConfig';
-import Product from '@/models/product';
 
 const WelcomePage = async () => {
-  dbConnect();
-  const data = await WebsiteConfig.findOne({});
-
   return (
     <div className="min-h-[80vh] flex flex-col">
       <Header />
@@ -17,7 +11,6 @@ const WelcomePage = async () => {
           <br />
           <span className="gradient-text">Octopus Mobi</span>
         </h1>
-        <pre className="text-left">{JSON.stringify(data, null, 4)}</pre>
         <p className="text-lg mb-8">Your Trusted Second-Hand Mobile Store</p>
         <Link
           href="/tabs/home" // Link to your products page

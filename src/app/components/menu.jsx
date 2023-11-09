@@ -1,30 +1,42 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const CustomMenu = () => {
   const [open, setOpen] = useState(false);
+  const eleRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick, true);
+  }, []);
 
   const handleToggle = () => {
     setOpen(!open);
   };
 
+  const handleOutsideClick = (event) => {
+    if (!eleRef.current?.contains(event.target)) {
+      setOpen(false);
+    }
+  };
+
   return (
-    <div>
+    <div ref={eleRef}>
       <div
         className="h-[40px] aspect-square flex justify-center items-center rounded-md cursor-pointer"
         onClick={handleToggle}
       >
-        {open ? (
+        {/* {open ? (
           <i className="fi fi-rr-cross text-xl gradient-text flex items-center"></i>
         ) : (
           <i className="fi fi-rr-bars-sort text-xl gradient-text flex items-center"></i>
-        )}
+        )} */}
+        <i className="fi fi-rr-bars-sort text-xl gradient-text flex items-center"></i>
       </div>
 
       <div
-        className={`fixed w-[300px] h-full z-[2] top-0 right-0 transition bg-white border shadow-lg`}
+        className={`fixed w-[300px] h-full z-[2] top-0 left-0 transition bg-white border shadow-lg`}
         style={{
-          transform: open ? 'translateX(0)' : 'translateX(100%)',
+          transform: open ? 'translateX(0%)' : 'translateX(-100%)',
         }}
       >
         <MenuContent />
