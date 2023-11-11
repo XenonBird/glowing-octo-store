@@ -39,3 +39,6 @@ next-env.d.ts
 
 # enviroment variables 
 .env
+
+#temporary files
+/src/.temp/

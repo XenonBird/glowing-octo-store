@@ -1,7 +1,28 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
 
 function LogoutScreen() {
+  const handleLogout = async () => {
+    console.log('triggered');
+    const t = toast.loading('Processing');
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'GET',
+        credentials: 'same-origin',
+      });
+      const body = await response.json();
+      if (response.status === 200) {
+        toast.success(body.message, { id: t });
+      } else {
+        toast.error(body.message, { id: t });
+      }
+    } catch (error) {
+      toast.error(error.message, { id: t });
+    }
+  };
+
   return (
     <main className="w-full p-8">
       <div className="mx-auto max-w-sm bg-white p-8 rounded-lg border shadow-lg">
@@ -18,7 +39,7 @@ function LogoutScreen() {
         <p className="mb-4">Are you sure you want to log out?</p>
         <div className="flex flex-col gap-4">
           <button
-            // onClick={() => {}}
+            onClick={() => handleLogout()}
             className="w-full py-2 bg-red-500 font-semibold text-white rounded-lg"
           >
             Logout
@@ -31,6 +52,7 @@ function LogoutScreen() {
           </Link>
         </div>
       </div>
+      <Toaster />
     </main>
   );
 }

@@ -5,13 +5,32 @@ import mongoose from 'mongoose';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const metadata = {
-  openGraph: {
-    title: 'Samsung Galaxy S23 Ultra',
-    description: 'Get Samsung Galaxy S23 Ultra at most affordable price',
-    images: ['/products/samsung-s22-ultra.jpg'],
-  },
-};
+// export const metadata = {
+//   openGraph: {
+//     title: 'Samsung Galaxy S23 Ultra',
+//     description: 'Get Samsung Galaxy S23 Ultra at most affordable price',
+//     images: ['/products/samsung-s22-ultra.jpg'],
+//   },
+// };
+
+// Dynamic metadata
+export async function generateMetadata({ params }) {
+  await dbConnect();
+  var product;
+  const data = await WebsiteConfig.findOne({});
+  var product = {};
+  if (mongoose.isValidObjectId(params.product)) {
+    product = await Product.findById(params.product);
+  }
+
+  return {
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: [product.imageUrl],
+    },
+  };
+}
 
 const ProductDetail = async ({ params }) => {
   await dbConnect();
@@ -28,6 +47,14 @@ const ProductDetail = async ({ params }) => {
       </main>
     );
   }
+
+  const whatsappLink = `https://wa.me/91${
+    data.adminPhoneNumber
+  }?text=Hi%20there%2C%0AI%20am%20interested%20in%20%0A*${product.name
+    .trim()
+    .replace(' ', '%20')}*%0Ahttps://octopus-mobi.vercel.app/tabs/home/${
+    params.product
+  }`;
 
   return (
     <main className="w-full grow overflow-y-scroll">
@@ -114,7 +141,7 @@ const ProductDetail = async ({ params }) => {
       </div>
 
       <Link
-        href={`https://wa.me/91${data.adminPhoneNumber}?text=Hi%20there%2C%0AI%20am%20intrested%20in%20*Samsung%20Galaxy%20s23%20ultra*`}
+        href={whatsappLink}
         className="fixed bottom-[calc(61px+1rem)] right-4 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-md tap-highlight-disable"
       >
         <i className="fi fi-brands-whatsapp text-white text-4xl flex items-center"></i>

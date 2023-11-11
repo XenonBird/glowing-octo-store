@@ -7,6 +7,7 @@ function WishlistTab() {
       <h3 className="max-w-6xl mx-auto mt-4 p-2 text-center text-xl font-semibold gradient-text capitalize">
         Wishlist
       </h3>
+      <p className="text-red-500 text-center">This page is not completed yet</p>
       <div className="max-w-6xl mx-auto p-2 grow grid grid-cols-1 md:grid-cols-2 gap-2 justify-items-center">
         <ProductListItem
           product={{}}

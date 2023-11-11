@@ -92,7 +92,7 @@ export async function POST(request) {
       httpOnly: true,
       expires: new Date().getTime() + 24 * 60 * 60 * 1000,
     });
-    response.cookies.set('username', targetUser.name, {
+    response.cookies.set('username', savedUser.name, {
       httpOnly: true,
       expires: new Date().getTime() + 24 * 60 * 60 * 1000,
     });
