@@ -5,14 +5,6 @@ import mongoose from 'mongoose';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// export const metadata = {
-//   openGraph: {
-//     title: 'Samsung Galaxy S23 Ultra',
-//     description: 'Get Samsung Galaxy S23 Ultra at most affordable price',
-//     images: ['/products/samsung-s22-ultra.jpg'],
-//   },
-// };
-
 // Dynamic metadata
 export async function generateMetadata({ params }) {
   await dbConnect();

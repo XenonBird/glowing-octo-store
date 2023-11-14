@@ -17,8 +17,9 @@ function DeletePage({ params }) {
       toast.success('Deleted', { id: toastId });
     }
     if (res.status !== 200) {
+      const body = await res.json();
       setDone('Failed');
-      toast.error('Failed', { id: toastId });
+      toast.error(`Failed: ${body.message}`, { id: toastId });
     }
   };
 

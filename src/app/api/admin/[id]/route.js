@@ -1,4 +1,5 @@
 import { dbConnect } from '@/dbConfig/db-config';
+import getTokenData from '@/helper/token';
 import Product from '@/models/product';
 
 export async function GET(request, { params }) {
@@ -20,6 +21,19 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
+    const token = request.cookies?.get('token')?.value;
+    const decodedToken = getTokenData(token);
+
+    if (!decodedToken.success) {
+      return Response.json({ message: 'Please login first' }, { status: 404 });
+    }
+    if (!decodedToken.data.isAdmin) {
+      return Response.json(
+        { message: 'You are not allowed here' },
+        { status: 400 }
+      );
+    }
+
     await dbConnect();
     const productId = params.id;
     const data = await request.json();
@@ -39,6 +53,21 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   const productId = params.id;
   try {
+    const token = request.cookies?.get('token')?.value;
+    const decodedToken = getTokenData(token);
+
+    if (!decodedToken.success) {
+      return Response.json({ message: 'Please login first' }, { status: 404 });
+    }
+    if (!decodedToken.data.isAdmin) {
+      return Response.json(
+        { message: 'You are not allowed here' },
+        { status: 400 }
+      );
+    }
+
+    // console.log(decodedToken);
+
     await dbConnect();
     const res = await Product.findByIdAndDelete(productId);
     if (res) {

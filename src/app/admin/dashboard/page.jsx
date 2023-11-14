@@ -10,7 +10,9 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/admin');
+        const response = await fetch('/api/admin', {
+          credentials: 'same-origin',
+        });
         if (response.ok) {
           const data = await response.json();
           setProducts(data);

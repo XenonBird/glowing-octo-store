@@ -56,7 +56,7 @@ function EditProduct({ params }) {
       if (res.ok) {
         toast.success('Product updated', { id: submitToast });
       } else {
-        toast.error('Updation failed', { id: submitToast });
+        toast.error(`Failed: ${data.message}`, { id: submitToast });
       }
     } catch (error) {
       console.error('Error:', error);

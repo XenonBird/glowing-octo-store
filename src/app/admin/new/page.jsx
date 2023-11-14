@@ -59,7 +59,8 @@ function NewProduct() {
         setProduct(initialProductState);
         setProduct(initialProductState);
       } else {
-        toast.error('Failed to add the product', { id: toastId });
+        const body = await res.json();
+        toast.error(`Failed: ${body.message}`, { id: toastId });
       }
     } catch (error) {
       console.error('Error:', error);
