@@ -6,7 +6,13 @@ export async function POST(request) {
     { status: 200 }
   );
 
-  response.cookies.set('token', '');
-  response.cookies.set('username', '');
+  response.cookies.set('token', '', {
+    httpOnly: true,
+    expires: new Date().getTime() - 1000,
+  });
+  response.cookies.set('username', '', {
+    httpOnly: true,
+    expires: new Date().getTime() - 1000,
+  });
   return response;
 }
