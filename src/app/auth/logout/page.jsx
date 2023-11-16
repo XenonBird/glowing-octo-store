@@ -9,7 +9,7 @@ function LogoutScreen() {
     const t = toast.loading('Processing');
     try {
       const response = await fetch('/api/auth/logout', {
-        method: 'GET',
+        method: 'POST',
         credentials: 'same-origin',
       });
       const body = await response.json();
