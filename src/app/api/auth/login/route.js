@@ -66,11 +66,11 @@ export async function POST(request) {
     const response = NextResponse.json(targetUser, { status: 200 });
     response.cookies.set('token', signedToken, {
       httpOnly: true,
-      expires: new Date().getTime() + 24 * 60 * 60 * 1000,
+      expires: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
     });
     response.cookies.set('username', targetUser.name, {
       httpOnly: true,
-      expires: new Date().getTime() + 24 * 60 * 60 * 1000,
+      expires: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
     });
     return response;
   } catch (error) {
