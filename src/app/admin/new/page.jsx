@@ -10,35 +10,28 @@ const initialProductState = {
   brand: '',
   imageUrl: '/products/samsung-s22-ultra.jpg',
   description: '',
-  price: {
-    min: 0,
-    max: 0,
-    note: '',
-  },
-  features: {
-    display: '',
-    processor: '',
-    ram: '',
-    storage: '',
-    camera: '',
-    connectivity: '',
-  },
+  priceMin: 0,
+  priceMax: 0,
+  priceNote: '',
+  display: '',
+  processor: '',
+  ram: '',
+  storage: '',
+  camera: '',
+  connectivity: '',
 };
 function NewProduct() {
   const [product, setProduct] = useState(initialProductState);
+  const [image, setImage] = useState(null); // State for storing the selected image file
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const updatedProduct = { ...product };
-    const keys = name.split('.');
-    const lastKey = keys.pop();
-    let currentObject = updatedProduct;
-    keys.forEach((key) => {
-      currentObject[key] = { ...currentObject[key] };
-      currentObject = currentObject[key];
-    });
-    currentObject[lastKey] = value;
-    setProduct(updatedProduct);
+    setProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
   };
 
   const handleSubmit = async (e) => {
@@ -46,18 +39,40 @@ function NewProduct() {
 
     try {
       const toastId = toast.loading('Please wait...');
-      const res = await fetch('/api/admin', {
+
+      // Create form data
+      const formData = new FormData();
+      formData.append('name', product.name);
+      formData.append('brand', product.brand);
+      formData.append('description', product.description);
+      formData.append('priceMin', product.priceMin);
+      formData.append('priceMax', product.priceMax);
+      formData.append('priceNote', product.priceNote);
+      formData.append('display', product.display);
+      formData.append('processor', product.processor);
+      formData.append('ram', product.ram);
+      formData.append('storage', product.storage);
+      formData.append('camera', product.camera);
+      formData.append('connectivity', product.connectivity);
+
+      // Append the image file
+      formData.append('image', image);
+      if (!image) {
+        toast.error('image is not selected', { id: toastId });
+        return;
+      }
+
+      // Send POST request with form data
+      const res = await fetch('/api/admin/new', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(product),
+        body: formData,
+        credentials: 'same-origin',
       });
 
       if (res.ok) {
         toast.success('Product added successfully', { id: toastId });
         setProduct(initialProductState);
-        setProduct(initialProductState);
+        setImage(null);
       } else {
         const body = await res.json();
         toast.error(`Failed: ${body.message}`, { id: toastId });
@@ -84,6 +99,24 @@ function NewProduct() {
                 label="Product Name"
                 required={true}
               />
+              {/* Input field for uploading an image */}
+              <div>
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Image
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-1 p-2 border rounded-md w-full"
+                  required={true}
+                />
+              </div>
               <InputField
                 name="brand"
                 type="text"
@@ -93,14 +126,6 @@ function NewProduct() {
                 required={true}
               />
               <InputField
-                name="imageUrl"
-                type="text"
-                value={product.imageUrl}
-                readonly={true}
-                changeHandler={handleChange}
-                label="Image URL"
-              />
-              <InputField
                 name="description"
                 type="text"
                 value={product.description}
@@ -108,65 +133,67 @@ function NewProduct() {
                 label="Description"
               />
               <InputField
-                name="price.min"
+                name="priceMin"
                 type="number"
-                value={product.price.min}
+                value={product.priceMin}
                 changeHandler={handleChange}
                 label="Minimum Price"
+                required={true}
               />
               <InputField
-                name="price.max"
+                name="priceMax"
                 type="number"
-                value={product.price.max}
+                value={product.priceMax}
                 changeHandler={handleChange}
                 label="Maximum Price"
+                required={true}
               />
               <InputField
-                name="price.note"
+                name="priceNote"
                 type="text"
-                value={product.price.note}
+                value={product.priceNote}
                 changeHandler={handleChange}
                 label="Price Note"
               />
               <InputField
-                name="features.display"
+                name="display"
                 type="text"
-                value={product.features.display}
+                value={product.display}
                 changeHandler={handleChange}
                 label="Display"
               />
               <InputField
-                name="features.processor"
+                name="processor"
                 type="text"
-                value={product.features.processor}
+                value={product.processor}
                 changeHandler={handleChange}
                 label="Processor"
               />
               <InputField
-                name="features.ram"
+                name="ram"
                 type="text"
-                value={product.features.ram}
+                value={product.ram}
                 changeHandler={handleChange}
                 label="RAM"
               />
               <InputField
-                name="features.storage"
+                name="storage"
                 type="text"
-                value={product.features.storage}
+                value={product.storage}
                 changeHandler={handleChange}
                 label="Storage"
               />
               <InputField
-                name="features.camera"
+                name="camera"
                 type="text"
-                value={product.features.camera}
+                value={product.camera}
                 changeHandler={handleChange}
                 label="Camera"
               />
               <InputField
-                name="features.connectivity"
+                name="connectivity"
                 type="text"
-                value={product.features.connectivity}
+                value={product.connectivity}
                 changeHandler={handleChange}
                 label="Connectivity"
               />

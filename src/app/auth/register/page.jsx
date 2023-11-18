@@ -1,5 +1,4 @@
 'use client';
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -24,9 +23,6 @@ function RegisterScreen() {
     const toastId = toast.loading('Processing');
 
     try {
-      // const response = await axios.post('/api/auth', formData, {
-      //   withCredentials: true,
-      // });
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify(formData),

@@ -2,24 +2,8 @@ import { dbConnect } from '@/dbConfig/db-config';
 import User from '@/models/user';
 import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-
-const UserSchema = z.object({
-  name: z.string().min(1, 'Name is required.'),
-  email: z
-    .string()
-    .min(1, 'Email is required.')
-    .refine(
-      (email) => email.endsWith('@gmail.com'),
-      'Email must end with "@gmail.com"'
-    ),
-  number: z
-    .string()
-    .length(10, { message: 'Mobile number be 10 characters long' }),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
-  isAdmin: z.boolean().default(false),
-});
+import { UserValidationSchema } from '@/validation/zod-schemas';
 
 // register
 export async function POST(request) {
@@ -27,7 +11,7 @@ export async function POST(request) {
     await dbConnect();
     // const cookies = request.cookies.getAll();
     const incomingData = await request.json();
-    const validatedData = UserSchema.safeParse(incomingData);
+    const validatedData = UserValidationSchema.safeParse(incomingData);
     if (!validatedData.success) {
       return Response.json(
         { message: validatedData.error.issues[0].message },
