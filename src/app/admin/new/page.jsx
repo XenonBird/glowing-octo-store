@@ -116,6 +116,17 @@ function NewProduct() {
                   className="mt-1 p-2 border rounded-md w-full"
                   required={true}
                 />
+                {image && (
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt="Selected Image"
+                    className="mt-2 border rounded-md"
+                    style={{ maxWidth: '200px' }}
+                  />
+                )}
+                {!image && (
+                  <div className="mt-2 text-gray-500">No image selected</div>
+                )}
               </div>
               <InputField
                 name="brand"
