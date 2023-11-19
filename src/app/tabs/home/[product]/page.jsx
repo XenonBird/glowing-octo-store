@@ -55,6 +55,7 @@ const ProductDetail = async ({ params }) => {
           {/* <p>{params.product}</p> */}
           <div className=" max-w-xs mx-auto md:w-1/2 p-4 text-center">
             <Image
+              // unoptimized
               src={product.imageUrl}
               width={360}
               height={360}

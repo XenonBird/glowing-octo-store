@@ -77,8 +77,8 @@ export async function PUT(request, { params }) {
       // Update the product's image URL
       const fileDir =
         '/uploads/img-' +
-        new Date().getTime() +
-        '-' +
+        // new Date().getTime() +
+        // '-' +
         slugify(existingProduct.name) +
         '.' +
         x.ext;

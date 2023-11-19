@@ -48,8 +48,8 @@ export async function POST(request) {
 
     const fileDir =
       '/uploads/img-' +
-      new Date().getTime() +
-      '-' +
+      // new Date().getTime() +
+      // '-' +
       slugify(data.name) +
       '.' +
       x.ext;
