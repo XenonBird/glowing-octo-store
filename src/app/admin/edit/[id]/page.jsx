@@ -4,12 +4,11 @@ import Header from '@/app/components/header';
 import InputField from '@/app/components/input-field';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
-import Image from 'next/image';
+import { CldImage, CldUploadWidget } from 'next-cloudinary';
 
 function EditProduct({ params }) {
   const productId = params.id;
   const [product, setProduct] = useState(null);
-  const [image, setImage] = useState(null); // State for storing the selected image file
 
   useEffect(() => {
     (async () => {
@@ -42,9 +41,12 @@ function EditProduct({ params }) {
     setProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  const handleUpload = (result, widget) => {
+    if (result.event !== 'success') {
+      toast.error('Failed to upload, try again');
+      return;
+    }
+    setProduct({ ...product, imageUrl: result.info.public_id });
   };
 
   const handleSubmit = async (e) => {
@@ -67,11 +69,7 @@ function EditProduct({ params }) {
       formData.append('storage', product.storage);
       formData.append('camera', product.camera);
       formData.append('connectivity', product.connectivity);
-
-      // Append the image file
-      if (image) {
-        formData.append('image', image);
-      }
+      formData.append('imageUrl', product.imageUrl);
 
       // Send POST request with form data
       const res = await fetch('/api/admin/' + productId, {
@@ -82,7 +80,6 @@ function EditProduct({ params }) {
 
       if (res.ok) {
         toast.success('Product updated successfully', { id: toastId });
-        setImage(null);
         const body = await res.json();
         console.log(body);
         setProduct({
@@ -134,6 +131,7 @@ function EditProduct({ params }) {
                   label="Brand"
                   required={true}
                 />
+
                 {/* Input field for uploading an image */}
                 <div>
                   <label
@@ -142,35 +140,36 @@ function EditProduct({ params }) {
                   >
                     Image
                   </label>
-                  <input
-                    type="file"
-                    id="image"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="mt-1 p-2 border rounded-md w-full"
-                  />
-                  {image ? (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="Selected Image"
-                      className="mt-2 border rounded-md"
-                      style={{ maxWidth: '200px' }}
-                    />
-                  ) : (
-                    <Image
+                  <CldUploadWidget
+                    uploadPreset="drglfiw8"
+                    onUpload={handleUpload}
+                  >
+                    {({ open }) => {
+                      return (
+                        <button
+                          className="px-3 py-1 rounded-md gradient-bg text-white"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            open();
+                          }}
+                        >
+                          Upload an Image
+                        </button>
+                      );
+                    }}
+                  </CldUploadWidget>
+                  {product.imageUrl && (
+                    <CldImage
+                      width="100"
+                      height="100"
                       src={product.imageUrl}
-                      alt="Selected Image"
-                      className="mt-2 border rounded-md"
-                      style={{ maxWidth: '200px' }}
-                      width={200}
-                      height={200}
+                      className="border rounded-md my-2"
+                      sizes="100vw"
+                      alt="Description of my image"
                     />
                   )}
-                  {/* {!image && (
-                    <div className="mt-2 text-gray-500">No image selected</div>
-                  )} */}
                 </div>
+
                 <InputField
                   name="description"
                   type="text"

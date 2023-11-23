@@ -58,40 +58,10 @@ export async function PUT(request, { params }) {
     const data = {};
     for (const entry of formData.entries()) data[entry[0]] = entry[1];
 
-    // Check if a new image is provided
-    if (data.image && data.image.size) {
-      const bytes = await data.image.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      // Check file type
-      const x = await fileTypeFromBuffer(buffer);
-      const isImage = x.mime.includes('image/');
-
-      if (!isImage) {
-        return Response.json(
-          { message: 'Please select a valid image' },
-          { status: 400 }
-        );
-      }
-
-      // Update the product's image URL
-      const fileDir =
-        '/uploads/img-' +
-        // new Date().getTime() +
-        // '-' +
-        slugify(existingProduct.name) +
-        '.' +
-        x.ext;
-
-      const dir = path.join(process.cwd(), 'public', fileDir);
-      await fs.writeFile(dir, buffer);
-
-      existingProduct.imageUrl = fileDir;
-    }
-
     // Update other product details
     existingProduct.name = data.name;
     existingProduct.brand = data.brand;
+    existingProduct.imageUrl = data.imageUrl;
     existingProduct.description = data.description;
     existingProduct.price.min = parseInt(data.priceMin);
     existingProduct.price.max = parseInt(data.priceMax);

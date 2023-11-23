@@ -1,16 +1,14 @@
+import { CloudinaryImage } from '@/app/components/coudinary-image';
 import { dbConnect } from '@/dbConfig/db-config';
 import Product from '@/models/product';
 import WebsiteConfig from '@/models/websiteConfig';
 import mongoose from 'mongoose';
-import Image from 'next/image';
 import Link from 'next/link';
 
 // Dynamic metadata
 export async function generateMetadata({ params }) {
   await dbConnect();
   var product;
-  const data = await WebsiteConfig.findOne({});
-  var product = {};
   if (mongoose.isValidObjectId(params.product)) {
     product = await Product.findById(params.product);
   }
@@ -27,10 +25,12 @@ export async function generateMetadata({ params }) {
 const ProductDetail = async ({ params }) => {
   await dbConnect();
   const data = await WebsiteConfig.findOne({});
-  var product = {};
+  var product = null;
   if (mongoose.isValidObjectId(params.product)) {
     product = await Product.findById(params.product);
-  } else {
+  }
+
+  if (!product) {
     return (
       <main className="w-full grow overflow-y-scroll">
         <div className="max-w-6xl mx-auto mt-4 p-4">
@@ -54,13 +54,14 @@ const ProductDetail = async ({ params }) => {
         <div className="flex flex-wrap gap-4">
           {/* <p>{params.product}</p> */}
           <div className=" max-w-xs mx-auto md:w-1/2 p-4 text-center">
-            <Image
-              // unoptimized
+            {console.log({ url: product.imageUrl })}
+            <CloudinaryImage
               src={product.imageUrl}
               width={360}
               height={360}
               alt={product.name}
               className="rounded-lg"
+              sizes="100vw"
             />
           </div>
           <div className="w-full md:w-1/2">

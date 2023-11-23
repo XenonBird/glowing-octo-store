@@ -4,6 +4,7 @@ import Header from '@/app/components/header';
 import InputField from '@/app/components/input-field';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
+import { CldImage, CldUploadWidget } from 'next-cloudinary';
 
 const initialProductState = {
   name: '',
@@ -22,16 +23,20 @@ const initialProductState = {
 };
 function NewProduct() {
   const [product, setProduct] = useState(initialProductState);
-  const [image, setImage] = useState(null); // State for storing the selected image file
+  const [publicId, setPublicId] = useState(undefined);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  const handleUpload = (result, widget) => {
+    if (result.event !== 'success') {
+      toast.error('Failed to upload, try again');
+      return;
+    }
+    setPublicId(result.info.public_id);
+    console.log(result.info.public_id);
   };
 
   const handleSubmit = async (e) => {
@@ -54,10 +59,8 @@ function NewProduct() {
       formData.append('storage', product.storage);
       formData.append('camera', product.camera);
       formData.append('connectivity', product.connectivity);
-
-      // Append the image file
-      formData.append('image', image);
-      if (!image) {
+      formData.append('imageUrl', publicId);
+      if (!publicId) {
         toast.error('image is not selected', { id: toastId });
         return;
       }
@@ -85,7 +88,6 @@ function NewProduct() {
   return (
     <div className="bg-white">
       <Header fullHeader={false} />
-      {/* <pre>{JSON.stringify(final, null, 4)}</pre> */}
       <hr className="my-4" />
       <main className="w-full overflow-y-scroll">
         <div className="max-w-6xl mx-auto p-4">
@@ -99,6 +101,7 @@ function NewProduct() {
                 label="Product Name"
                 required={true}
               />
+
               {/* Input field for uploading an image */}
               <div>
                 <label
@@ -107,27 +110,33 @@ function NewProduct() {
                 >
                   Image
                 </label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="mt-1 p-2 border rounded-md w-full"
-                  required={true}
-                />
-                {image && (
-                  <img
-                    src={URL.createObjectURL(image)}
-                    alt="Selected Image"
-                    className="mt-2 border rounded-md"
-                    style={{ maxWidth: '200px' }}
+                <CldUploadWidget
+                  uploadPreset="drglfiw8"
+                  onUpload={handleUpload}
+                >
+                  {({ open }) => {
+                    return (
+                      <button
+                        className="px-3 py-1 rounded-md gradient-bg text-white"
+                        onClick={() => open()}
+                      >
+                        Upload an Image
+                      </button>
+                    );
+                  }}
+                </CldUploadWidget>
+                {publicId && (
+                  <CldImage
+                    width="100"
+                    height="100"
+                    src={publicId}
+                    className="border rounded-md my-2"
+                    sizes="100vw"
+                    alt="Description of my image"
                   />
                 )}
-                {!image && (
-                  <div className="mt-2 text-gray-500">No image selected</div>
-                )}
               </div>
+
               <InputField
                 name="brand"
                 type="text"

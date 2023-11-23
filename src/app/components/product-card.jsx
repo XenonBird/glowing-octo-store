@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { CloudinaryImage } from './coudinary-image';
 
 const ProductCard = ({ product, shrink }) => {
   return (
@@ -10,12 +10,13 @@ const ProductCard = ({ product, shrink }) => {
       } bg-white rounded-lg shadow-lg p-4 cursor-pointer border flex flex-col`}
     >
       <div className="text-center aspect-square">
-        <Image
-          width={360}
-          height={360}
+        <CloudinaryImage
           src={product.imageUrl}
-          alt="Product Image"
-          className="object-cover mx-auto"
+          width={200}
+          height={200}
+          alt={product.name}
+          className="rounded-lg"
+          sizes="100vw"
         />
       </div>
       <div className="mt-2 text-xs grow flex flex-col gap-1 justify-between">
